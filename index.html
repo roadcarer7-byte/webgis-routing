@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Routing Sederhana OSRM</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+  <!-- Leaflet Routing Machine -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+</head>
+<body>
+  <div id="map" style="height: 100vh;"></div>
+  
+  <script>
+    // Membuat peta
+    var map = L.map('map').setView([-8.4095, 115.1889], 10); // Titik awal: Bali
+
+    // Tambahkan layer OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Routing dari Titik A ke Titik B
+    L.Routing.control({
+      waypoints: [
+        L.latLng(-8.4095, 115.1889), // Titik A: Denpasar
+        L.latLng(-8.3405, 115.0920)  // Titik B: Ubud
+      ],
+      routeWhileDragging: true
+    }).addTo(map);
+  </script>
+</body>
+</html>
