@@ -43,4 +43,57 @@
 </html>
 
 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rute Evakuasi Gunung Berapi & Banjir</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+</head>
+<body>
+<div id="map" style="height: 100vh;"></div>
+<script>
+  // Peta dasar
+  var map = L.map('map').setView([-8.4095, 115.1889], 11);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // ======= Rute Evakuasi Gunung Berapi =======
+  var gunungRawan = L.latLng(-8.3405, 115.0920); // contoh: dekat gunung
+  var shelterGunung = L.latLng(-8.3000, 115.2500); // zona aman
+
+  L.Routing.control({
+    waypoints: [gunungRawan, shelterGunung],
+    lineOptions: { styles: [{color: 'red', weight: 5}] },
+    routeWhileDragging: false,
+    addWaypoints: false
+  }).addTo(map);
+
+  L.marker(gunungRawan).bindPopup("Zona Rawan Gunung Berapi").addTo(map);
+  L.marker(shelterGunung).bindPopup("Shelter Aman Gunung Berapi").addTo(map);
+
+  // ======= Rute Evakuasi Banjir =======
+  var banjirRawan = L.latLng(-8.4500, 115.1000); // contoh: daerah banjir
+  var shelterBanjir = L.latLng(-8.4200, 115.2000); // dataran tinggi
+
+  L.Routing.control({
+    waypoints: [banjirRawan, shelterBanjir],
+    lineOptions: { styles: [{color: 'blue', weight: 5}] },
+    routeWhileDragging: false,
+    addWaypoints: false
+  }).addTo(map);
+
+  L.marker(banjirRawan).bindPopup("Zona Rawan Banjir").addTo(map);
+  L.marker(shelterBanjir).bindPopup("Shelter Aman Banjir").addTo(map);
+
+</script>
+</body>
+</html>
+
+
 
